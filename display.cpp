@@ -17,7 +17,7 @@ Display::~Display() {
 }
 
 // This function handles the printing of the current state of the board
-void Display::print_board(std::vector<std::vector<int>> *state)
+void Display::print_board(std::vector<std::vector<int>>& state)
 {
     // Adds column coordinates at the top
     std::cout << " ";
@@ -40,29 +40,29 @@ void Display::print_board(std::vector<std::vector<int>> *state)
         // Middle part of the row being printed
         // The for loop will need to decide wether to print an X or an O
         // Also prints row coordinates
-        if (std::vector<std::vector<int>>(*state)[i][0] == 0) {
+        if (std::vector<std::vector<int>>(state)[i][0] == 0) {
             std::cout << i << "     |";
-        } else if (std::vector<std::vector<int>>(*state)[i][0] == 1) {
+        } else if (std::vector<std::vector<int>>(state)[i][0] == 1) {
             std::cout << i << "  X  |";
-        } else if (std::vector<std::vector<int>>(*state)[i][0] == 2) {
+        } else if (std::vector<std::vector<int>>(state)[i][0] == 2) {
             std::cout << i << "  O  |";
         }
 
         for (int j = 0; j < size - 2; j++) {
-            if (std::vector<std::vector<int>>(*state)[i][j + 1] == 0) {
+            if (std::vector<std::vector<int>>(state)[i][j + 1] == 0) {
                 std::cout << "     |";
-            } else if (std::vector<std::vector<int>>(*state)[i][j + 1] == 1) {
+            } else if (std::vector<std::vector<int>>(state)[i][j + 1] == 1) {
                 std::cout << "  X  |";
-            } else if (std::vector<std::vector<int>>(*state)[i][j + 1] == 2) {
+            } else if (std::vector<std::vector<int>>(state)[i][j + 1] == 2) {
                 std::cout << "  O  |";
             }
         }
 
-        if (std::vector<std::vector<int>>(*state)[i][size - 1] == 0) {
+        if (std::vector<std::vector<int>>(state)[i][size - 1] == 0) {
             std::cout << "     " << std::endl;
-        } else if (std::vector<std::vector<int>>(*state)[i][size - 1] == 1) {
+        } else if (std::vector<std::vector<int>>(state)[i][size - 1] == 1) {
             std::cout << "  X  " << std::endl;
-        } else if (std::vector<std::vector<int>>(*state)[i][size - 1] == 2) {
+        } else if (std::vector<std::vector<int>>(state)[i][size - 1] == 2) {
             std::cout << "  O  " << std::endl;
         }
         
@@ -84,29 +84,29 @@ void Display::print_board(std::vector<std::vector<int>> *state)
 
     // Middle part of the row being printed
     // The for loop will need to decide wether to print an X or an O
-    if (std::vector<std::vector<int>>(*state)[size - 1][0] == 0) {
+    if (std::vector<std::vector<int>>(state)[size - 1][0] == 0) {
         std::cout << size - 1 << "     |";
-    } else if (std::vector<std::vector<int>>(*state)[size - 1][0] == 1) {
+    } else if (std::vector<std::vector<int>>(state)[size - 1][0] == 1) {
         std::cout << size - 1 << "  X  |";
-    } else if (std::vector<std::vector<int>>(*state)[size - 1][0] == 2) {
+    } else if (std::vector<std::vector<int>>(state)[size - 1][0] == 2) {
         std::cout << size - 1 << "  O  |";
     }
 
     for (int i = 0; i < size - 2; i++) {
-        if (std::vector<std::vector<int>>(*state)[size - 1][i + 1] == 0) {
+        if (std::vector<std::vector<int>>(state)[size - 1][i + 1] == 0) {
             std::cout << "     |";
-        } else if (std::vector<std::vector<int>>(*state)[size - 1][i + 1] == 1) {
+        } else if (std::vector<std::vector<int>>(state)[size - 1][i + 1] == 1) {
             std::cout << "  X  |";
-        } else if (std::vector<std::vector<int>>(*state)[size - 1][i + 1] == 2) {
+        } else if (std::vector<std::vector<int>>(state)[size - 1][i + 1] == 2) {
             std::cout << "  O  |";
         }
     }
 
-    if (std::vector<std::vector<int>>(*state)[size - 1][size - 1] == 0) {
+    if (std::vector<std::vector<int>>(state)[size - 1][size - 1] == 0) {
         std::cout << "     " << std::endl;
-    } else if (std::vector<std::vector<int>>(*state)[size - 1][size - 1] == 1) {
+    } else if (std::vector<std::vector<int>>(state)[size - 1][size - 1] == 1) {
         std::cout << "  X  " << std::endl;
-    } else if (std::vector<std::vector<int>>(*state)[size - 1][size - 1] == 2) {
+    } else if (std::vector<std::vector<int>>(state)[size - 1][size - 1] == 2) {
         std::cout << "  O  " << std::endl;
     }
     

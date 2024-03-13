@@ -14,7 +14,7 @@ int main(int argc, char* argv[]) {
     vector<int> sizes = {3,4,5,6,7};
 
     // Dynamically allocate 2D vector to hold state of tic tac toe board
-    vector<vector<int>> *state;
+    vector<vector<int>> state;
 
     // Prints the board size options for the user
     cout << "1: 3 X 3" << endl;
@@ -36,13 +36,13 @@ int main(int argc, char* argv[]) {
     // Sets size of 2D array
     int size = 0;
     size = sizes[size_choice - 1];
-    state = new vector<vector<int>>(size);
+    state.resize(size);
 
 
     // initializes each cell to a 0 to mean empty
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
-            (*state)[i].push_back(0);
+            (state)[i].push_back(0);
         }
     }
 
@@ -75,7 +75,7 @@ int main(int argc, char* argv[]) {
 
         // Update the state of the board
         // Print the newly updated board
-        (*state)[row][column] = 1;
+        (state)[row][column] = 1;
         board.print_board(state);
 
         // Check if the most recent move creates a win for the human player
@@ -93,11 +93,13 @@ int main(int argc, char* argv[]) {
             continue;
         }
     }
+
+
     return 0;
 }
 
 // This function checks if the player input is even a valid move
-bool validMove(int row, int col, std::vector<std::vector<int>> *state, int size)
+bool validMove(int row, int col, std::vector<std::vector<int>>& state, int size)
 {
     // If the location is out of bounds
     if (row > size - 1) {
@@ -109,13 +111,15 @@ bool validMove(int row, int col, std::vector<std::vector<int>> *state, int size)
     }
 
     // If the location is already taken
-    if ((*state)[row][col] != 0) {
+    if ((state)[row][col] != 0) {
         return false;
     }
     return true;
 }
 
-bool computerMove(std::vector<std::vector<int>> *state, int size, int player, Display& board) 
+// This function handles the computer making a move
+// Also handles checking if computer wins games
+bool computerMove(std::vector<std::vector<int>>& state, int size, int player, Display& board) 
 {
     int row = 0;
     int col = 0;
@@ -143,7 +147,8 @@ bool computerMove(std::vector<std::vector<int>> *state, int size, int player, Di
 
     // Update the state of the board
     // Print the newly updated board
-    (*state)[row][col] = 2;
+    cout << "Computer moves to (" << row << ", " << col << ")"  << endl;
+    (state)[row][col] = 2;
     board.print_board(state);
 
     // Check and return if computer wins
@@ -151,7 +156,7 @@ bool computerMove(std::vector<std::vector<int>> *state, int size, int player, Di
 }
 
 // This function checks if most recent move results in a win
-bool checkWinner(int row, int col, std::vector<std::vector<int>> *state, int size, int player)
+bool checkWinner(int row, int col, std::vector<std::vector<int>>& state, int size, int player)
 {
     // Check horizontal win
     int count = 0;
@@ -160,7 +165,7 @@ bool checkWinner(int row, int col, std::vector<std::vector<int>> *state, int siz
     int temp_col = col;
     while (temp_col + 1 <= size - 1) {
         temp_col = temp_col + 1;
-        if ((*state)[row][temp_col] == player) {
+        if ((state)[row][temp_col] == player) {
             count++;
         }
     }
@@ -169,7 +174,7 @@ bool checkWinner(int row, int col, std::vector<std::vector<int>> *state, int siz
     temp_col = col;
     while (temp_col - 1 >= 0) {
         temp_col = temp_col - 1;
-        if ((*state)[row][temp_col] == player) {
+        if ((state)[row][temp_col] == player) {
             count++;
         }
     }
@@ -192,7 +197,7 @@ bool checkWinner(int row, int col, std::vector<std::vector<int>> *state, int siz
     int temp_row = row;
     while (temp_row - 1 >= 0) {
         temp_row = temp_row - 1;
-        if ((*state)[temp_row][col] == player) {
+        if ((state)[temp_row][col] == player) {
             count++;
         }
     }
@@ -201,7 +206,7 @@ bool checkWinner(int row, int col, std::vector<std::vector<int>> *state, int siz
     temp_row = row;
     while (temp_row + 1 <= size - 1) {
         temp_row = temp_row + 1;
-        if ((*state)[temp_row][col] == player) {
+        if ((state)[temp_row][col] == player) {
             count++;
         }
     }
@@ -226,7 +231,7 @@ bool checkWinner(int row, int col, std::vector<std::vector<int>> *state, int siz
     while ((temp_col + 1 <= size - 1) && (temp_row + 1 <= size - 1)) {
         temp_col = temp_col + 1;
         temp_row = temp_row + 1;
-        if ((*state)[temp_row][temp_col] == player) {
+        if ((state)[temp_row][temp_col] == player) {
             count++;
         }
     }
@@ -237,7 +242,7 @@ bool checkWinner(int row, int col, std::vector<std::vector<int>> *state, int siz
     while ((temp_col - 1 >= 0) && (temp_row - 1 >= 0)) {
         temp_col = temp_col - 1;
         temp_row = temp_row - 1;
-        if ((*state)[temp_row][temp_col] == player) {
+        if ((state)[temp_row][temp_col] == player) {
             count++;
         }
     }
@@ -263,7 +268,7 @@ bool checkWinner(int row, int col, std::vector<std::vector<int>> *state, int siz
     while ((temp_col - 1 >= 0) && (temp_row + 1 <= size - 1)) {
         temp_col = temp_col - 1;
         temp_row = temp_row + 1;
-        if ((*state)[temp_row][temp_col] == player) {
+        if ((state)[temp_row][temp_col] == player) {
             count++;
         }
     }
@@ -274,7 +279,7 @@ bool checkWinner(int row, int col, std::vector<std::vector<int>> *state, int siz
     while ((temp_col + 1 <= size - 1) && (temp_row - 1 >= 0)) {
         temp_col = temp_col + 1;
         temp_row = temp_row - 1;
-        if ((*state)[temp_row][temp_col] == player) {
+        if ((state)[temp_row][temp_col] == player) {
             count++;
         }
     }

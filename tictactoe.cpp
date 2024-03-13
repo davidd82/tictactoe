@@ -4,8 +4,8 @@ tictactoe.cpp
 
 #include <iostream>
 #include <vector>
+#include <cstdlib>
 #include "tictactoe.h"
-#include "display.h"
 
 using namespace std;
 
@@ -55,6 +55,7 @@ int main(int argc, char* argv[]) {
     board.print_board(state);
     bool winner = false;
     int player = 1;
+    int computer = 2;
 
     // While there is no winner yet
     // Keep playing the game
@@ -80,11 +81,17 @@ int main(int argc, char* argv[]) {
         // Check if the most recent move creates a win for the human player
         if (checkWinner(row, column, state, size, player)) {
             cout << "Player " << player << " Wins!" << endl;
+            winner = true;
+            continue;
         }
 
-        //TODO
         // Let computer make a random move
-        // Check if computer wins
+        // Checks if computer wins
+        if(computerMove(state, size, computer, board)) {
+            cout << "Computer Wins!" << endl;
+            winner = true;
+            continue;
+        }
     }
     return 0;
 }
@@ -106,6 +113,41 @@ bool validMove(int row, int col, std::vector<std::vector<int>> *state, int size)
         return false;
     }
     return true;
+}
+
+bool computerMove(std::vector<std::vector<int>> *state, int size, int player, Display& board) 
+{
+    int row = 0;
+    int col = 0;
+
+    // Providing a seed value
+	srand((unsigned) time(NULL));
+
+	// Get a random number for row
+	int random = rand() % size;
+    row = random;
+
+    // Get a random number for col
+	random = rand() % size;
+    col = random;
+
+    while(!validMove(row, col, state, size)) {
+        // Get a random number for row
+	    random = rand() % size;
+        row = random;
+
+        // Get a random number for col
+        random = rand() % size;
+        col = random;
+    }
+
+    // Update the state of the board
+    // Print the newly updated board
+    (*state)[row][col] = 2;
+    board.print_board(state);
+
+    // Check and return if computer wins
+    return checkWinner(row, col, state, size, player);
 }
 
 // This function checks if most recent move results in a win

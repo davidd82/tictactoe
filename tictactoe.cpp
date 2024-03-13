@@ -131,11 +131,41 @@ bool checkWinner(int row, int col, std::vector<std::vector<int>> *state, int siz
             count++;
         }
     }
+    temp_col = col;
 
     // Increment count by one to also count the most recent move
     count++;
 
     // If a row is all filled out then player is the winner
+    if (count == size) {
+        return true;
+    }
+
+    // Check vertical win
+    count = 0;
+
+    // Check above the row
+    int temp_row = row;
+    while (temp_row - 1 >= 0) {
+        temp_row = temp_row - 1;
+        if ((*state)[temp_row][col] == player) {
+            count++;
+        }
+    }
+
+    // Check bottom of the row
+    temp_row = row;
+    while (temp_row + 1 <= size - 1) {
+        temp_row = temp_row + 1;
+        if ((*state)[temp_row][col] == player) {
+            count++;
+        }
+    }
+
+    // Increment count by one to also count the most recent move
+    count++;
+
+    // If a column is all filled out then player is the winner
     if (count == size) {
         return true;
     }

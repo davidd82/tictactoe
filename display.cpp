@@ -4,6 +4,7 @@ display.cpp
 
 #include "display.h"
 #include <iostream>
+#include <vector>
 
 // Sets size data member to user input
 Display::Display(int size_) {
@@ -16,9 +17,8 @@ Display::~Display() {
 }
 
 // This function handles the printing of the current state of the board
-void Display::print_board()
+void Display::print_board(std::vector<std::vector<int>> *state)
 {
-    
     // Adds column coordinates at the top
     std::cout << " ";
     for (int i = 0; i < size; i++) {
@@ -40,7 +40,14 @@ void Display::print_board()
         // Middle part of the row being printed
         // The for loop will need to decide wether to print an X or an O
         // Also prints row coordinates
-        std::cout << i << "     |";
+        if (std::vector<std::vector<int>>(*state)[i][0] == 0) {
+            std::cout << i << "     |";
+        } else if (std::vector<std::vector<int>>(*state)[i][0] == 1) {
+            std::cout << i << "  X  |";
+        } else if (std::vector<std::vector<int>>(*state)[i][0] == 2) {
+            std::cout << i << "  O  |";
+        }
+        
         for (int j = 0; j < size - 2; j++) {
             std::cout << "     |";
         }

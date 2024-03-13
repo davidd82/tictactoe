@@ -48,11 +48,21 @@ int main(int argc, char* argv[]) {
 
     Display board(sizes[size_choice - 1]);
 
-    board.print_board();
+    board.print_board(state);
     bool winner = false;
 
     while (!winner) {
+        int row = 0;
+        int column = 0;
+        cout << "Enter row and then column coordinate to make a move" << endl;
+        cin >> row;
+        cin >> column; 
 
+        // Check if user input is a valid move
+        // TODO
+
+        (*state)[row][column] = 1;
+        board.print_board(state);
     }
     return 0;
 }

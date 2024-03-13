@@ -59,7 +59,10 @@ int main(int argc, char* argv[]) {
         cin >> column; 
 
         // Check if user input is a valid move
-        // TODO
+        if(!validMove(row, column, state, sizes[size_choice - 1])) {
+            cout << "Move invalid! Try another location..." << endl;
+            continue;
+        }
 
         (*state)[row][column] = 1;
         board.print_board(state);
@@ -72,4 +75,20 @@ int main(int argc, char* argv[]) {
  which ones have O's
  *************************************************/
 
+bool validMove(int row, int col, std::vector<std::vector<int>> *state, int size)
+{
+    // If the location is out of bounds
+    if (row > size - 1) {
+        return false;
+    }
 
+    if (col > size - 1) {
+        return false; 
+    }
+
+    // If the location is already taken
+    if ((*state)[row][col] != 0) {
+        return false;
+    }
+    return true;
+}

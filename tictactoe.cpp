@@ -9,13 +9,11 @@ tictactoe.cpp
 
 using namespace std;
 
-// Prototype for maze_search, which you will fill in below.
-
-// main function to read, solve maze, and print result
 int main(int argc, char* argv[]) {
+    // Stores all possible sizes for the tic tac toe board
     vector<int> sizes = {3,4,5,6,7};
 
-    // Dynamically allocate 2D vector to hold state of tictactoe board
+    // Dynamically allocate 2D vector to hold state of tic tac toe board
     vector<vector<int>> *state;
 
     // Prints the board size options for the user
@@ -25,9 +23,8 @@ int main(int argc, char* argv[]) {
     cout << "4: 6 X 6" << endl;
     cout << "5: 7 X 7" << endl;
 
-    int size_choice = 0;
-
     // Asks for user input on board size
+    int size_choice = 0;
     cout << "Choose size of tic tac toe board:" << endl;
     cin >> size_choice;
 
@@ -37,21 +34,32 @@ int main(int argc, char* argv[]) {
     }
 
     // Sets size of 2D array
-    state = new vector<vector<int>>(sizes[size_choice - 1]);
+    int size = 0;
+    size = sizes[size_choice - 1];
+    state = new vector<vector<int>>(size);
+
 
     // initializes each cell to a 0 to mean empty
-    for (int i = 0; i < sizes[size_choice - 1]; i++) {
-        for (int j = 0; j < sizes[size_choice - 1]; j++) {
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
             (*state)[i].push_back(0);
         }
     }
 
-    Display board(sizes[size_choice - 1]);
+    // Create instance of board display
+    Display board(size);
 
+    // Print an empty board to start game
+    // winner is false
+    // X is player 1 and 2 is computer 
     board.print_board(state);
     bool winner = false;
+    int player = 1;
 
+    // While there is no winner yet
+    // Keep playing the game
     while (!winner) {
+        // Ask user for the row and column of their move
         int row = 0;
         int column = 0;
         cout << "Enter row and then column coordinate to make a move" << endl;
@@ -59,22 +67,29 @@ int main(int argc, char* argv[]) {
         cin >> column; 
 
         // Check if user input is a valid move
-        if(!validMove(row, column, state, sizes[size_choice - 1])) {
+        if(!validMove(row, column, state, size)) {
             cout << "Move invalid! Try another location..." << endl;
             continue;
         }
 
+        // Update the state of the board
+        // Print the newly updated board
         (*state)[row][column] = 1;
         board.print_board(state);
+
+        // Check if the most recent move creates a win for the human player
+        if (checkWinner(row, column, state, size, player)) {
+            cout << "Player " << player << " Wins!" << endl;
+        }
+
+        //TODO
+        // Let computer make a random move
+        // Check if computer wins
     }
     return 0;
 }
 
-/**************************************************
- 2D vector to hold data for what spaces have X's and
- which ones have O's
- *************************************************/
-
+// This function checks if the player input is even a valid move
 bool validMove(int row, int col, std::vector<std::vector<int>> *state, int size)
 {
     // If the location is out of bounds
@@ -91,4 +106,39 @@ bool validMove(int row, int col, std::vector<std::vector<int>> *state, int size)
         return false;
     }
     return true;
+}
+
+// This function checks if most recent move results in a win
+bool checkWinner(int row, int col, std::vector<std::vector<int>> *state, int size, int player)
+{
+    // Check horizontal win
+    int count = 0;
+
+    // Check right side of the column
+    int temp_col = col;
+    while (temp_col + 1 <= size - 1) {
+        temp_col = temp_col + 1;
+        if ((*state)[row][temp_col] == player) {
+            count++;
+        }
+    }
+
+    // Check left side of the column
+    temp_col = col;
+    while (temp_col - 1 >= 0) {
+        temp_col = temp_col - 1;
+        if ((*state)[row][temp_col] == player) {
+            count++;
+        }
+    }
+
+    // Increment count by one to also count the most recent move
+    count++;
+
+    // If a row is all filled out then player is the winner
+    if (count == size) {
+        return true;
+    }
+    
+    return false;
 }

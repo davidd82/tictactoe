@@ -92,9 +92,22 @@ int main(int argc, char* argv[]) {
             winner = true;
             continue;
         }
+
+        // Check for tie
+        int count = 0;
+        for(int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (state[i][j] == 0) {
+                    count++;
+                }
+            }
+        }
+
+        if (count == (size * size)) {
+            cout << "Tie! No winner!" << endl;
+            break;
+        }
     }
-
-
     return 0;
 }
 

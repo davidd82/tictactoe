@@ -131,6 +131,8 @@ bool checkWinner(int row, int col, std::vector<std::vector<int>> *state, int siz
             count++;
         }
     }
+
+    // Reset temp_col
     temp_col = col;
 
     // Increment count by one to also count the most recent move
@@ -162,6 +164,9 @@ bool checkWinner(int row, int col, std::vector<std::vector<int>> *state, int siz
         }
     }
 
+    // Reset temp_row
+    temp_row = row;
+
     // Increment count by one to also count the most recent move
     count++;
 
@@ -169,6 +174,81 @@ bool checkWinner(int row, int col, std::vector<std::vector<int>> *state, int siz
     if (count == size) {
         return true;
     }
+
+    // Check diagnol win
+    count = 0;
+
+    // Check bottom right
+    temp_row = row;
+    temp_col = col;
+    while ((temp_col + 1 <= size - 1) && (temp_row + 1 <= size - 1)) {
+        temp_col = temp_col + 1;
+        temp_row = temp_row + 1;
+        if ((*state)[temp_row][temp_col] == player) {
+            count++;
+        }
+    }
+
+    // Check top left
+    temp_row = row;
+    temp_col = col;
+    while ((temp_col - 1 >= 0) && (temp_row - 1 >= 0)) {
+        temp_col = temp_col - 1;
+        temp_row = temp_row - 1;
+        if ((*state)[temp_row][temp_col] == player) {
+            count++;
+        }
+    }
+
+    // Reset temp_row and temp_col
+    temp_row = row;
+    temp_col = col;
+
+    // Increment count by one to also count the most recent move
+    count++;
+
+    // If a diagnol is all filled out then player is the winner
+    if (count == size) {
+        return true;
+    }
+
+    // Check SECOND diagnol win
+    count = 0;
+
+    // Check bottom left
+    temp_row = row;
+    temp_col = col;
+    while ((temp_col - 1 >= 0) && (temp_row + 1 <= size - 1)) {
+        temp_col = temp_col - 1;
+        temp_row = temp_row + 1;
+        if ((*state)[temp_row][temp_col] == player) {
+            count++;
+        }
+    }
+
+    // Check upper right
+    temp_row = row;
+    temp_col = col;
+    while ((temp_col + 1 <= size - 1) && (temp_row - 1 >= 0)) {
+        temp_col = temp_col + 1;
+        temp_row = temp_row - 1;
+        if ((*state)[temp_row][temp_col] == player) {
+            count++;
+        }
+    }
+
+    // Reset temp_row and temp_col
+    temp_row = row;
+    temp_col = col;
+
+    // Increment count by one to also count the most recent move
+    count++;
+
+    // If a diagnol is all filled out then player is the winner
+    if (count == size) {
+        return true;
+    }
     
+    // If no winner then return false
     return false;
 }

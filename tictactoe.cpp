@@ -15,6 +15,10 @@ using namespace std;
 int main(int argc, char* argv[]) {
     vector<int> sizes = {3,4,5,6,7};
 
+    // Dynamically allocate 2D vector to hold state of tictactoe board
+    vector<vector<int>> *state;
+
+    // Prints the board size options for the user
     cout << "1: 3 X 3" << endl;
     cout << "2: 4 X 4" << endl;
     cout << "3: 5 X 5" << endl;
@@ -22,25 +26,40 @@ int main(int argc, char* argv[]) {
     cout << "5: 7 X 7" << endl;
 
     int size_choice = 0;
+
+    // Asks for user input on board size
     cout << "Choose size of tic tac toe board:" << endl;
     cin >> size_choice;
+
+    // If statement handles invalid user inputs
+    if ((size_choice < 1) || (size_choice > 5)) {
+        size_choice = 1;
+    }
+
+    // Sets size of 2D array
+    state = new vector<vector<int>>(sizes[size_choice - 1]);
+
+    // initializes each cell to a 0 to mean empty
+    for (int i = 0; i < sizes[size_choice - 1]; i++) {
+        for (int j = 0; j < sizes[size_choice - 1]; j++) {
+            (*state)[i].push_back(0);
+        }
+    }
 
     Display board(sizes[size_choice - 1]);
 
     board.print_board();
+    bool winner = false;
 
+    while (!winner) {
 
+    }
     return 0;
 }
 
 /**************************************************
- * Attempt to find shortest path and return:
- *  1 if successful
- *  0 if no path exists
- *
- * If path is found fill it in with '*' characters
- *  but don't overwrite the 'S' and 'F' cells
- * NOTE: don't forget to deallocate memory in here too!
+ 2D vector to hold data for what spaces have X's and
+ which ones have O's
  *************************************************/
 
 

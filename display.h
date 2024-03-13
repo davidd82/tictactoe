@@ -2,19 +2,17 @@
 class Display {
 public:
    
-   // constructor. maxlen must be as large as the total number
-   // of Locations that will ever be entered into this Queue.
+   // constructor. sets size of board to user input
    Display(int size);
    
-   // destructor. releases resources. C++ will call it automatically.
+   // destructor
    ~Display();
 
    // This function handles the printing of the current state of the board
    void print_board();
    
 
-
-   // member variables of an Queue, for implementation:
+// member variables
 private:
    int size; // Size of tic tac toe board
 };

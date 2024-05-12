@@ -6,16 +6,19 @@ tictactoe.cpp
 #include <vector>
 #include <cstdlib>
 #include "tictactoe.h"
+#include "main_menu.h"
 
 using namespace std;
 
 int main(int argc, char* argv[]) {
+    MainMenu menu;
+    menu.print_main_menu();
     // Stores all possible sizes for the tic tac toe board
     vector<int> sizes = {3,4,5,6,7};
 
     // Dynamically allocate 2D vector to hold state of tic tac toe board
     vector<vector<int>> state;
-
+    
     // Prints the board size options for the user
     cout << "1: 3 X 3" << endl;
     cout << "2: 4 X 4" << endl;

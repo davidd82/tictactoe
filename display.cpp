@@ -118,18 +118,17 @@ void Display::print_board(std::vector<std::vector<int>>& state)
     std::cout << "     " << std::endl;
     
     /* Example of how board will look after printing
-    "   0     1     2  "
-    "      |     |     "  
-    "0  X  |  X  |  X  "  
-    " _____+_____+_____"
-    "      |     |     "  
-    "1  X  |  X  |  X  "  
-    " _____+_____+_____"
-    "      |     |     "  
-    "2  X  |  X  |  X  "  
-    "      +     +     "
+       0     1     2  
+          |     |       
+    0  X  |  X  |  X    
+     _____+_____+_____
+          |     |       
+    1  X  |  X  |  X    
+     _____+_____+_____
+          |     |       
+    2  X  |  X  |  X    
+          +     +     
     */
 }
-
 
 

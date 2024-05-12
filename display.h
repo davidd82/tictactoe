@@ -13,6 +13,7 @@ public:
    // This function handles the printing of the current state of the board
    void print_board(std::vector<std::vector<int>>& state);
    
+   void print_main_menu();
 
 // member variables
 private:
